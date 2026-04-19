@@ -1,0 +1,52 @@
+name: DroneSubjectTrackEnv
+
+defaults:
+  # see https://hydra.cc/docs/advanced/overriding_packages/
+  - /base/env_base@_here_
+  - /base/sim_base@_here_
+
+# ppo_cfg: DroneRacePayload.yaml
+
+env:
+  num_envs: 4096
+  max_episode_length: 3000 # we want this to be 30s
+
+sim:
+  substeps: 5
+  dt: 0.002
+
+drone_model:
+  name: Iris
+  controller: RateController
+
+total_frames: 500_000_000
+save_interval: 100
+
+# Scenario parameters (FigureEightCosineObstacle)
+loop_time: [25.0, 24.0, 28.0, 30.0, 30.0]
+loop_radius: [5.0, 4.9, 5.2, 4.4, 6.0]
+obstacle_period: [28.0, 21.0, 15.0, 15.0, 23.0]
+# loop_time: [25.0]
+# loop_radius: [5.0]
+# obstacle_period: [28.0]
+fixed_z: 2.0
+play_gif_frame_stride: 10
+
+# Cost parameters (from fly.py Scenario.params())
+desired_range_to_subject: 3.0
+desired_angle_to_subject_velocity: 0.0
+desired_range_to_subject_cost: 10.0
+desired_angle_to_subject_velocity_cost: 10.0
+obstacle_cost: 500.0
+obstacle_radius: 2.0
+
+# Regularization reward weights
+reward_action_magnitude_weight: 0.02
+reward_uprightness_weight: 0.01
+reward_z_height_weight: 0.1
+reward_alive: 0.05
+reward_success: 0
+
+# One-step penalties when an episode ends (subtracted on that step; 0 = disabled)
+reward_termination_penalty: 50.0
+reward_truncation_penalty: 0.0
