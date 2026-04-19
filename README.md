@@ -14,6 +14,9 @@
 
 *Trajectory plots across three example scenarios. Interactive Plotly HTML files for these visualizations are saved in the `scripts/` folder.*
 
+**Training Results**
+![](docs/res1.png)
+![](docs/res2.png)
 ## Getting Started (Docker)
 
 ### 1. Clone the Repository
